@@ -8,6 +8,8 @@ $(function(){
 	// var socket = new io.Socket();
 	// socket.connect();
 
+	var socket = new io.Socket();
+
 	socket.on('connect', function(){
 		socket.emit('msg update');
 	});
