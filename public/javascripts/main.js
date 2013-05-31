@@ -6,6 +6,7 @@ $(function(){
 	// var socket = io.connect('http://localhost')
 	// var socket = new io.Socket();
 	// socket.connect();
+
 	socket.on('connect', function(){
 		socket.emit('msg update');
 	});
