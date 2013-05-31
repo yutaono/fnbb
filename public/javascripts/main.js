@@ -4,9 +4,15 @@ $(function(){
 	// var socket = io.connect('http://www.snake4.mobi/fnbb/')
 	// var socket = io.connect('http://fnbb.herokuapp.com/')
 	// var socket = io.connect('http://localhost')
-	var socket = io.connect(window.location.hostname);
+	// var socket = io.connect(window.location.hostname);
 	// var socket = new io.Socket();
 	// socket.connect();
+
+	io.configure(function () {
+	io.set("transports", ["xhr-polling"]);
+	io.set("polling duration", 10);
+	});
+	socket = new io.Socket();
 
 	socket.on('connect', function(){
 		socket.emit('msg update');
