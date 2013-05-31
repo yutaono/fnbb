@@ -50,9 +50,9 @@ var UserSchema = new Schema({
   created: Date
 });
 mongoose.model('User', UserSchema);
-var uri = process.env.MONGOHQ_URL || 'mongodb://133.242.151.118/59bb'
+var uri = process.env.MONGOHQ_URL || 'mongodb://localhost/59bb'
 // mongoose.connect('mongodb://133.242.151.118/59bb');
-// mongoose.connect(uri);
+mongoose.connect(uri);
 var User = mongoose.model('User');
 
 // Socket
