@@ -1,0 +1,23 @@
+body {
+  /*padding: 50px;*/
+  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+}
+
+a {
+  color: #00B7FF;
+}
+
+html, body ,div#zone {
+	height: 100%;
+}
+
+span.text, input {
+	position: absolute;
+	width: 200px;
+	height: 25px;
+	background-color: transparent;
+	border: 0;
+	font-size: 20px;
+	/*overflow: visible;*/
+	/*display: inline-block;*/
+}

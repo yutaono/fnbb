@@ -1,0 +1,11 @@
+{
+    "name": "fnbb"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "express": "2.5.11"
+    , "ejs": ">= 0.0.1"
+    , "mongoose": "1.3.5"
+    , "socket.io": "0.8.7"
+  }
+}
