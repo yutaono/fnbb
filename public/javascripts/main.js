@@ -2,8 +2,9 @@ $(function(){
 
 	// var socket = io.connect('http://133.242.151.118:3000');
 	// var socket = io.connect('http://www.snake4.mobi/fnbb/')
-	var socket = io.connect('http://fnbb.herokuapp.com/')
+	// var socket = io.connect('http://fnbb.herokuapp.com/')
 	// var socket = io.connect('http://localhost')
+	var socket = io.connect(window.location.hostname);
 	// var socket = new io.Socket();
 	// socket.connect();
 
