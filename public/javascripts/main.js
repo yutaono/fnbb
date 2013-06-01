@@ -60,7 +60,7 @@ $(function(){
 				$('#zone').append("<span class='text' id='text_"+id+"'>"+value.message+"</span>");
 				$('span#text_'+id).css("left", value.px).css("top", value.py).css("color", color[value.color_num]);
 				$('span#text_'+id).css("opacity", fadeout_time/max_fadeout_time);
-				$('span#text_'+id).css("display", "none");
+				// $('span#text_'+id).css("display", "none");
 				$('span#text_'+id).fadeIn("slow");
 
 				if(fadeout_time < max_fadeout_time ){
