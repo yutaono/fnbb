@@ -8,7 +8,6 @@ var express = require('express'),
     mongoose = require('mongoose');
 
 var app = module.exports = express.createServer();
-// var app = express.createServer();
 
 // Configuration
 
@@ -35,7 +34,7 @@ app.get('/', routes.index);
 var port = process.env.PORT || 3000;
 
 app.listen(port, function(){
-  // console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
 
 
@@ -51,20 +50,19 @@ var UserSchema = new Schema({
 });
 mongoose.model('User', UserSchema);
 var uri = process.env.MONGOHQ_URL || 'mongodb://localhost/59bb'
-// mongoose.connect('mongodb://133.242.151.118/59bb');
 mongoose.connect(uri);
 var User = mongoose.model('User');
 
 // Socket
 var io = require('socket.io').listen(app);
-
 io.configure(function () {
   io.set("transports", ["xhr-polling"]);
   io.set("polling duration", 10);
 });
 
-io.sockets.on('connection', function(socket){
+var looking_user = 0;
 
+io.sockets.on('connection', function(socket){
   socket.on('msg update', function(){
     User.find({"visible":true}, function(err, docs){
       socket.emit('msg open', docs);
@@ -72,6 +70,10 @@ io.sockets.on('connection', function(socket){
   });
 
   console.log('conencted');
+  looking_user++;
+  socket.on('count looking user', function(){
+    return looking_user;
+  });
 
   socket.on('msg send', function(msg, px, py, color_num, created){
     socket.emit('msg push', msg, px, py, color_num, created);
@@ -99,6 +101,7 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('disconnect', function(){
+    looking_user--;
     console.log('disconnected');
   });
 });

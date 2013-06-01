@@ -1,9 +1,5 @@
 $(function(){
 
-	// var socket = io.connect('http://133.242.151.118:3000');
-	// var socket = io.connect('http://ww
-	// var socket = io.connect('http://fnbb.herokuapp.com/')
-
 	var socket = io.connect(window.location.hostname);
 
 	socket.on('connect', function(){
@@ -39,6 +35,10 @@ $(function(){
 
 	});
 
+
+	console.log(socket.emit('count looking user'));
+
+
 	socket.on('msg push', function(msg, px, py, color_num, created){
 		var id = String(px) + '_' +String(py);
 
@@ -57,11 +57,11 @@ $(function(){
 				var id = String(value.px) + '_' +String(value.py);
 				var fadeout_time = max_fadeout_time - (new Date() - new Date(value.created));
 
-				$('#zone').append("<span class='text' id='text_"+id+">"+value.message+"</span>");
+				$('#zone').append("<span class='text' id='text_"+id+"'>"+value.message+"</span>");
 				$('span#text_'+id).css("left", value.px).css("top", value.py).css("color", color[value.color_num]);
 				$('span#text_'+id).css("opacity", fadeout_time/max_fadeout_time);
-				// $('span#text_'+id).css("display", "none");
-				// $('span#text_'+id).fadeIn("slow");
+				$('span#text_'+id).css("display", "none");
+				$('span#text_'+id).fadeIn("slow");
 
 				if(fadeout_time < max_fadeout_time ){
 					$('span#text_'+id).fadeOut(fadeout_time, function(){
