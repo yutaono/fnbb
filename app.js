@@ -102,6 +102,7 @@ io.sockets.on('connection', function(socket){
   socket.on('disconnect', function(){
     --online_user;
     socket.emit('onlineNumber', { online_user: online_user});
+    socket.broadcast.emit('onlineNumber', { online_user: online_user});
     console.log('disconnected');
   });
 });
