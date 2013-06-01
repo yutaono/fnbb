@@ -21,3 +21,47 @@ span.text, input {
 	/*overflow: visible;*/
 	/*display: inline-block;*/
 }
+
+/*
+#footer {
+	height: 160px;
+	/*margin-top: 90px;*/
+	/*padding-bottom: -20px;*/
+	/*margin-bottom: -20px;*/
+/*	padding-top: 10px;
+	background-color: #eee;
+	color: #444;*/
+
+/*}
+
+@media (max-width: 720px) {
+	#footer {
+		width: 100%;
+		margin-top: 100px;
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}*/
+
+#contact {
+	position: absolute;
+	bottom: 10px;
+	right: 200px;
+
+}
+
+#social {
+	position: absolute;
+	bottom: 0px;
+	/*margin-bottom: -50px;*/
+	right: 20px;
+}
+
+#social span {
+	width: 80px;
+	float : left;
+	/*margin-top: 20px;*/
+	/*margin-bottom: 20px;*/
+}

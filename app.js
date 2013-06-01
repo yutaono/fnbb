@@ -60,19 +60,17 @@ io.configure(function () {
   io.set("polling duration", 10);
 });
 
-var looking_user = 0;
+var online_user = 0;
 
 io.sockets.on('connection', function(socket){
+  console.log('conencted');
+  ++online_user;
+  socket.emit('onlineNumber', { online_user: online_user});
+
   socket.on('msg update', function(){
     User.find({"visible":true}, function(err, docs){
       socket.emit('msg open', docs);
     });
-  });
-
-  console.log('conencted');
-  looking_user++;
-  socket.on('count looking user', function(){
-    return looking_user;
   });
 
   socket.on('msg send', function(msg, px, py, color_num, created){
@@ -85,7 +83,7 @@ io.sockets.on('connection', function(socket){
     user.color_num = color_num;
     user.visible = true;
     user.created = new Date();
-    user.save(function(err) {
+    user.save( function(err) {
       if(err) { console.log(err); }
     });
   });
@@ -101,7 +99,8 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('disconnect', function(){
-    looking_user--;
+    --online_user;
+    socket.emit('onlineNumber', { online_user: online_user});
     console.log('disconnected');
   });
 });

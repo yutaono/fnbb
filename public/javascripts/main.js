@@ -32,19 +32,22 @@ $(function(){
 				$(this).blur();
 			}
 		});
-
 	});
 
+	$('span#description').fadeOut(max_fadeout_time);
 
-	console.log(socket.emit('count looking user'));
-
+	socket.on('onlineNumber', function(data){
+		var resData = data.online_user;
+		console.log(resData);
+	});
 
 	socket.on('msg push', function(msg, px, py, color_num, created){
 		var id = String(px) + '_' +String(py);
+		var text_id = 'span#text_' + id;
 
 		$('#zone').append("<span class='text' id='text_"+id+"''>"+msg+"</span>");
-		$('span#text_'+id).css("left", px).css("top", py).css("color", color[color_num]);
-		$('span#text_'+id).fadeOut(max_fadeout_time, function(){
+		$(text_id).css("left", px).css("top", py).css("color", color[color_num]);
+		$(text_id).fadeOut(max_fadeout_time, function(){
 			socket.emit('msg visible_false', px, py);
 		});
 	});
@@ -55,16 +58,17 @@ $(function(){
 		} else {
 			$.each(docs, function(key, value){
 				var id = String(value.px) + '_' +String(value.py);
+				var text_id = 'span#text_' + id;
 				var fadeout_time = max_fadeout_time - (new Date() - new Date(value.created));
 
 				$('#zone').append("<span class='text' id='text_"+id+"'>"+value.message+"</span>");
-				$('span#text_'+id).css("left", value.px).css("top", value.py).css("color", color[value.color_num]);
-				$('span#text_'+id).css("opacity", fadeout_time/max_fadeout_time);
-				$('span#text_'+id).css("display", "none");
-				$('span#text_'+id).fadeIn("slow");
+				$(text_id).css("left", value.px).css("top", value.py).css("color", color[value.color_num]);
+				$(text_id).css("opacity", fadeout_time/max_fadeout_time);
+				$(text_id).css("display", "none");
+				$(text_id).fadeIn("slow");
 
 				if(fadeout_time < max_fadeout_time ){
-					$('span#text_'+id).fadeOut(fadeout_time, function(){
+					$(text_id).fadeOut(fadeout_time, function(){
 						socket.emit('msg visible_false', value.px, value.py);
 					});
 				} else {
