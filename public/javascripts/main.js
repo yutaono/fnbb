@@ -12,6 +12,8 @@ $(function(){
 	var color = new Array('red', 'darkblue', 'green', 'orange', 'purple', 'gray', 'black', 'darkblue', 'maroon', 'fuchsia');
 	var max_fadeout_time = 59000; // 59sec
 
+	$('span#description').fadeOut(max_fadeout_time);
+
 	$('#zone').click( function(e){
 		var id = String(e.pageX) + '_' +String(e.pageY);
 		var color_num = Math.floor(Math.random()*color.length);
@@ -34,11 +36,9 @@ $(function(){
 		});
 	});
 
-	$('span#description').fadeOut(max_fadeout_time);
-
 	socket.on('onlineNumber', function(data){
 		var resData = data.online_user;
-		console.log(resData);
+		$('span#online span').html(resData);
 	});
 
 	socket.on('msg push', function(msg, px, py, color_num, created){

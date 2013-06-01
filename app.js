@@ -66,6 +66,7 @@ io.sockets.on('connection', function(socket){
   console.log('conencted');
   ++online_user;
   socket.emit('onlineNumber', { online_user: online_user});
+  socket.broadcast.emit('onlineNumber', { online_user: online_user});
 
   socket.on('msg update', function(){
     User.find({"visible":true}, function(err, docs){

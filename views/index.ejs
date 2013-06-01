@@ -1,4 +1,28 @@
 <div class="container" id="zone">
 	<h1><%= title %></h1>
 	<span id="description">画面をクリックしてテキストを入力してください。59秒でテキストは消えます。</span>
+
+	<span id='social'>
+		<span id='online'><span></span><br>online</span>
+		<span class="facebook_like"></span>
+		<span class="tweet"></span>
+	</span>
+
+	<span id="contact">
+		<a href="https://twitter.com/yutaono/">@yutaono</a> / <a href="https://github.com/yutaono/fnbb">GitHub</a>
+	</span>
+
+	<script>
+	$(function() {
+		$('.tweet').socialbutton('twitter', {
+			text: '59secbulltinboard ',
+			height: 50
+		});
+		$('.facebook_like').socialbutton('facebook_like',{
+			button: 'box_count',
+			height: 50
+		});
+	});
+	</script>
+
 </div>
