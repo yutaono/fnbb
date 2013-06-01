@@ -1,14 +1,10 @@
 $(function(){
 
 	// var socket = io.connect('http://133.242.151.118:3000');
-	// var socket = io.connect('http://www.snake4.mobi/fnbb/')
+	// var socket = io.connect('http://ww
 	// var socket = io.connect('http://fnbb.herokuapp.com/')
-	// var socket = io.connect('http://localhost')
-	var socket = io.connect(window.location.hostname);
-	// var socket = new io.Socket();
-	// socket.connect();
 
-	// var socket = new io.Socket();
+	var socket = io.connect(window.location.hostname);
 
 	socket.on('connect', function(){
 		socket.emit('msg update');
@@ -51,7 +47,6 @@ $(function(){
 		$('span#text_'+id).fadeOut(max_fadeout_time, function(){
 			socket.emit('msg visible_false', px, py);
 		});
-		// }
 	});
 
 	socket.on('msg open', function(docs){
@@ -62,9 +57,11 @@ $(function(){
 				var id = String(value.px) + '_' +String(value.py);
 				var fadeout_time = max_fadeout_time - (new Date() - new Date(value.created));
 
-				$('#zone').append("<span class='text' id='text_"+id+"''>"+value.message+"</span>");
+				$('#zone').append("<span class='text' id='text_"+id+">"+value.message+"</span>");
 				$('span#text_'+id).css("left", value.px).css("top", value.py).css("color", color[value.color_num]);
 				$('span#text_'+id).css("opacity", fadeout_time/max_fadeout_time);
+				$('span#text_'+id).css("display", "none");
+				$('span#text_'+id).fadeIn("slow");
 
 				if(fadeout_time < max_fadeout_time ){
 					$('span#text_'+id).fadeOut(fadeout_time, function(){
