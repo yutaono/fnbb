@@ -1,5 +1,12 @@
-html, body ,div#zone {
+html, body {
+	width: 100%;
+}
+
+div#zone {
+	padding-right: 20px;
+	padding-left: 20px;
 	height: 100%;
+	width: 100%;
 }
 
 a {
@@ -38,7 +45,7 @@ span.text, input {
 
 #contact {
 	position: absolute;
-	bottom: 10px;
+	bottom: 12px;
 	right: 10px;
 	font-size: 18px;
 }
