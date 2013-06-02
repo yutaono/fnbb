@@ -82,4 +82,8 @@ $(function(){
 		console.log(msg);
 	});
 
+	$('#btn').click(function(){
+		socket.emit('deleteDB');
+	});
+
 });
