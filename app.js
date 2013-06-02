@@ -5,6 +5,7 @@
 
 var express = require('express'),
     routes = require('./routes'),
+    posts_handler = require('./routes/posts'),
     mongoose = require('mongoose');
 
 var app = module.exports = express.createServer();
@@ -31,6 +32,8 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.get('/posts', posts_handler.index);
+
 var port = process.env.PORT || 3000;
 
 app.listen(port, function(){

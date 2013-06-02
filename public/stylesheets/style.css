@@ -20,7 +20,8 @@ span.text, input {
 	height: 28px;
 	background-color: transparent;
 	border: 0;
-	font-size: 24px;
+	font-size: 20px;
+	line-height: 26px;
 }
 
 #online {
