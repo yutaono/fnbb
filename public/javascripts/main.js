@@ -45,7 +45,11 @@ $(function(){
 		var id = String(px) + '_' +String(py);
 		var text_id = 'span#text_' + id;
 
-		$('#zone').append("<span class='text' id='text_"+id+"''>"+$(msg).text()+"</span>");
+		if($(msg).text().length!=0){
+			msg = $(msg).text();
+		}
+
+		$('#zone').append("<span class='text' id='text_"+id+"''>"+ msg +"</span>");
 		$(text_id).css("left", px).css("top", py).css("color", color[color_num]);
 		$(text_id).fadeOut(max_fadeout_time, function(){
 			socket.emit('msg visible_false', px, py);
@@ -61,7 +65,11 @@ $(function(){
 				var text_id = 'span#text_' + id;
 				var fadeout_time = max_fadeout_time - (new Date() - new Date(value.created));
 
-				$('#zone').append("<span class='text' id='text_"+id+"'>"+value.message+"</span>");
+				if($(value.message).text().length!=0){
+					value.message = $(value.message).text();
+				}
+
+				$('#zone').append("<span class='text' id='text_"+id+"'>"+ value.message +"</span>");
 				$(text_id).css("left", value.px).css("top", value.py).css("color", color[value.color_num]);
 				$(text_id).css("opacity", fadeout_time/max_fadeout_time);
 				$(text_id).css("display", "none");
@@ -82,8 +90,8 @@ $(function(){
 		console.log(msg);
 	});
 
-	$('#btn').click(function(){
-		socket.emit('deleteDB');
-	});
+	// $('#btn').click(function(){
+	// 	socket.emit('deleteDB');
+	// });
 
 });
