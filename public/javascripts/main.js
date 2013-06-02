@@ -45,7 +45,7 @@ $(function(){
 		var id = String(px) + '_' +String(py);
 		var text_id = 'span#text_' + id;
 
-		$('#zone').append("<span class='text' id='text_"+id+"''>"+msg+"</span>");
+		$('#zone').append("<span class='text' id='text_"+id+"''>"+$(msg).text()+"</span>");
 		$(text_id).css("left", px).css("top", py).css("color", color[color_num]);
 		$(text_id).fadeOut(max_fadeout_time, function(){
 			socket.emit('msg visible_false', px, py);
