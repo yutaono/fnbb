@@ -34,7 +34,6 @@ app.configure('production', function(){
 app.get('/', routes.index);
 // app.get('/posts', posts_handler.index);
 var port = process.env.PORT || 3000;
-
 app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
@@ -57,6 +56,7 @@ var User = mongoose.model('User');
 
 // Socket
 var io = require('socket.io').listen(app);
+
 io.configure(function () {
   io.set("transports", ["xhr-polling"]);
   io.set("polling duration", 10);
