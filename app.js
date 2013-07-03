@@ -55,10 +55,10 @@ var oldPostSchema = new Schema({
   color_num: Number,
   created: Date
 });
+
 mongoose.model('Post', PostSchema);
 mongoose.model('oldPost', oldPostSchema);
 var uri = process.env.MONGOHQ_URL || 'mongodb://localhost/59bb'
-console.log(uri);
 mongoose.connect(uri);
 var Post = mongoose.model('Post');
 var oldPost = mongoose.model('oldPost');
@@ -74,15 +74,13 @@ io.configure(function () {
 var online_user = 0;
 
 io.sockets.on('connection', function(socket){
+
   console.log('conencted');
   ++online_user;
   socket.emit('onlineNumber', { online_user: online_user});
   socket.broadcast.emit('onlineNumber', { online_user: online_user});
 
   socket.on('msg update', function(){
-    // Post.find({"visible":true}, function(err, docs){
-      // socket.emit('msg open', docs);
-    // });
     Post.find(function(err, docs){
       socket.emit('msg open', docs);
     });

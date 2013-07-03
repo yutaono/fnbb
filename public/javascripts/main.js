@@ -14,6 +14,10 @@ $(function(){
 
 	$('span#description').fadeOut(max_fadeout_time);
 
+	function h(s){
+		return s.replace(/[&<>"'()^]/g,function(m){return "&#"+m.charCodeAt(0)+';'});
+	}
+
 	$('#zone').click( function(e){
 		var id = String(e.pageX) + '_' +String(e.pageY);
 		var color_num = Math.floor(Math.random()*color.length);
@@ -23,7 +27,7 @@ $(function(){
 
 		$('input#'+id).focus().blur(function(){
 			if($(this).val()!=''){
-				socket.emit('msg send', $(this).val(), e.pageX, e.pageY, color_num);
+				socket.emit('msg send', h($(this).val()), e.pageX, e.pageY, color_num);
 			}
 			$(this).remove();
 		});
