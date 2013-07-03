@@ -86,6 +86,12 @@ $(function(){
 		}
 	});
 
+	socket.on('msg delete', function(px, py){
+		var id = String(px) + '_' +String(py);
+		var text_id = 'span#text_' + id;
+		$(text_id).remove();
+	});
+
 	socket.on('msg update', function(msg){
 		console.log(msg);
 	});

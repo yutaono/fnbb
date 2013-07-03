@@ -41,18 +41,27 @@ app.listen(port, function(){
 
 // mongoose
 var Schema = mongoose.Schema;
-var UserSchema = new Schema({
+var PostSchema = new Schema({
   message: String,
   px: Number,
   py: Number,
   color_num: Number,
-  visible: Boolean,
   created: Date
 });
-mongoose.model('User', UserSchema);
+var oldPostSchema = new Schema({
+  message: String,
+  px: Number,
+  py: Number,
+  color_num: Number,
+  created: Date
+});
+mongoose.model('Post', PostSchema);
+mongoose.model('oldPost', oldPostSchema);
 var uri = process.env.MONGOHQ_URL || 'mongodb://localhost/59bb'
+console.log(uri);
 mongoose.connect(uri);
-var User = mongoose.model('User');
+var Post = mongoose.model('Post');
+var oldPost = mongoose.model('oldPost');
 
 // Socket
 var io = require('socket.io').listen(app);
@@ -71,7 +80,10 @@ io.sockets.on('connection', function(socket){
   socket.broadcast.emit('onlineNumber', { online_user: online_user});
 
   socket.on('msg update', function(){
-    User.find({"visible":true}, function(err, docs){
+    // Post.find({"visible":true}, function(err, docs){
+      // socket.emit('msg open', docs);
+    // });
+    Post.find(function(err, docs){
       socket.emit('msg open', docs);
     });
   });
@@ -79,26 +91,38 @@ io.sockets.on('connection', function(socket){
   socket.on('msg send', function(msg, px, py, color_num, created){
     socket.emit('msg push', msg, px, py, color_num, created);
     socket.broadcast.emit('msg push', msg, px, py, color_num, created);
-    var user = new User();
-    user.message = msg;
-    user.px = px;
-    user.py = py;
-    user.color_num = color_num;
-    user.visible = true;
-    user.created = new Date();
-    user.save( function(err) {
+
+    var post = new Post();
+    post.message = msg;
+    post.px = px;
+    post.py = py;
+    post.color_num = color_num;
+    post.created = new Date();
+    post.save( function(err) {
+      if(err) { console.log(err); }
+    });
+
+    var old_post = new oldPost();
+    old_post.message = msg;
+    old_post.px = px;
+    old_post.py = py;
+    old_post.color_num = color_num;
+    old_post.created = new Date();
+    old_post.save(function(err) {
       if(err) { console.log(err); }
     });
   });
 
   socket.on('msg visible_false', function(px, py){
-    User.update({"px":px, "py":py}, { $set:{"visible":false} }, false, true);
+    Post.find({"px":px, "py":py}).remove();
+    socket.emit('msg delete', px, py);
+    socket.broadcast.emit('msg delete', px, py);
   });
 
   socket.on('deleteDB', function(){
     socket.emit('db drop');
     socket.broadcast.emit('db drop');
-    User.find().remove();
+    Post.find().remove();
   });
 
   socket.on('disconnect', function(){
