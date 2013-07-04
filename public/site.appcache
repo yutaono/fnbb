@@ -2,7 +2,7 @@ CACHE MANIFEST
 #last update: 2013/07/04
 
 CACHE:
-index.html
+index.*
 stylesheets/bootstrap-responsive.min.css
 stylesheets/bootstrap.min.css
 stylesheets/style.css
