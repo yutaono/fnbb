@@ -5,6 +5,7 @@ CACHE:
 index.html
 stylesheets/bootstrap-responsive.min.css
 stylesheets/bootstrap.min.css
+stylesheets/style.css
 javascripts/main.js
 javascripts/jquery.socialbutton-1.9.0.min.js
 
