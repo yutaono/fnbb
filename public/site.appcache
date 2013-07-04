@@ -1,0 +1,15 @@
+CACHE MANIFEST
+#last update: 2013/07/04
+
+CACHE:
+index.html
+stylesheets/bootstrap-responsive.min.css
+stylesheets/bootstrap.min.css
+javascripts/main.js
+javascripts/jquery.socialbutton-1.9.0.min.js
+
+FALLBACK:
+#index.html index_offline.html
+
+NETWORK:
+*
